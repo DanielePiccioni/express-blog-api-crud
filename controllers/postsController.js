@@ -1,27 +1,40 @@
+let posts = require("../data/posts")
+
 function index(req, res) {
-    res.send('Visualizzare tutti gli elementi');
+    res.json(posts);
 }
 
 function show(req, res) {
-    res.send(`Visualizzare un elemento ${req.params.id}`);
+    const id = parseInt(req.params.id);
+    const post = posts.find(p => p.id === id);
+
+    if (!post) {
+        return res.status(404).json({ error: "Post non trovato" });
+    }
+
+    res.json(post);
 }
 
-function store(req, res) {
-    res.send('Creare un nuovo elemento');
-}
-
-function update(req, res) {
-    res.send(`Modificare interamente un elemento ${req.params.id}`);
-}
 
 function destroy(req, res) {
-    res.send(`Eliminare un elemento ${req.params.id}`);
+    const id = parseInt(req.params.id);
+    const index = posts.findIndex(p => p.id === id);
+
+    if (index === -1) {
+        return res.status(404).json({ error: "Post non trovato" });
+    }
+
+    posts.splice(index, 1);
+
+    console.log("Lista aggiornata:", posts);
+
+    res.status(204).send();
 }
+
+
 
 module.exports = {
     index,
     show,
-    store,
-    update,
     destroy,
 };
