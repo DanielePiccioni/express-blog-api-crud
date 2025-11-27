@@ -32,8 +32,19 @@ function destroy(req, res) {
 }
 
 function store(req, res) {
-    console.log("Dati ricevuti:", req.body);
-    res.send("Dati ricevuti");
+    const newPost = {
+        id: posts.length ? posts[posts.length - 1].id + 1 : 1,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags || []
+    };
+
+    posts.push(newPost);
+
+    console.log("Post aggiunto:", newPost);
+
+    res.status(201).json(newPost);
 }
 
 
