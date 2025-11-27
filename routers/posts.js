@@ -9,4 +9,6 @@ router.get('/:id', postsController.show);
 
 router.delete('/:id', postsController.destroy);
 
+router.post('/', postsController.store);
+
 module.exports = router;

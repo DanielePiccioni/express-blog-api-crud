@@ -31,10 +31,16 @@ function destroy(req, res) {
     res.status(204).send();
 }
 
+function store(req, res) {
+    console.log("Dati ricevuti:", req.body);
+    res.send("Dati ricevuti");
+}
+
 
 
 module.exports = {
     index,
     show,
     destroy,
+    store,
 };
