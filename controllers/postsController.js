@@ -47,6 +47,27 @@ function store(req, res) {
     res.status(201).json(newPost);
 }
 
+function update(req, res) {
+    const id = parseInt(req.params.id);
+    const postData = req.body
+    const post = posts.find(p => p.id === id);
+
+    if (!post) {
+        return res.status(404).json({
+            error: true,
+            message: "Post non trovato"
+        });
+    }
+
+    post.title = postData.title;
+    post.content = postData.content;
+    post.image = postData.image;
+    post.tags = postData.tags;
+
+    console.log("Post aggiornato:", post);
+
+    res.json(post);
+}
 
 
 module.exports = {
@@ -54,4 +75,5 @@ module.exports = {
     show,
     destroy,
     store,
+    update,
 };
