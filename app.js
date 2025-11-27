@@ -7,6 +7,8 @@ app.use(express.static(`public`))
 
 app.use('/posts', postsRouter)
 
+app.use(express.json());
+
 app.listen(PORT, () => {
     console.log(`server running on http://localhost:${PORT}`);
 
